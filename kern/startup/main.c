@@ -101,6 +101,9 @@ boot(void)
 	kprintf("%s", harvard_copyright);
 	kprintf("\n");
 
+
+
+
 	kprintf("Put-your-group-name-here's system version %s (%s #%d)\n", 
 		GROUP_VERSION, buildconfig, buildversion);
 	kprintf("\n");
@@ -121,6 +124,7 @@ boot(void)
 	pseudoconfig();
 	kprintf("\n");
 
+	kprintf("<---Banner Changed--->\n");
 	/* Late phase of initialization. */
 	vm_bootstrap();
 	kprintf_bootstrap();

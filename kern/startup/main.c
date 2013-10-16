@@ -50,7 +50,7 @@
 #include <test.h>
 #include <version.h>
 #include "autoconf.h"  // for pseudoconfig
-
+#include "opt-A0.h"
 
 /*
  * These two pieces of data are maintained by the makefiles and build system.
@@ -125,6 +125,9 @@ boot(void)
 	kprintf("\n");
 
 	kprintf("<---Banner Changed--->\n");
+#if OPT_A0
+	hello();
+#endif /* OPT_A0 */
 	/* Late phase of initialization. */
 	vm_bootstrap();
 	kprintf_bootstrap();

@@ -556,7 +556,7 @@ static struct {
 	{ "kh",         cmd_kheapstats },
 
 	/* base system tests */
-	{ "mt" 		mytest },
+	{ "mt", 		mytest },
 	{ "at",		arraytest },
 	{ "bt",		bitmaptest },
 	{ "km1",	malloctest },

@@ -2,13 +2,14 @@
 #include <lib.h>
 #include <test.h>
 #include <thread.h>
+#include <current.h>
 
 void thread_function(void *ptr, unsigned long value){
 	char* name = ptr;
-	//This is just the ugliest thing. Using void values generates compile
-	//errors, but we can use the memory location of a void value and pretend
-	//that it's a char pointer, because we know in this case it will be
 	kprintf(name);
+	//The above is the name passed in, the below is using the "curthread" 
+	//global defined in current.h
+	kprintf(curthread->t_name);
 }
 
 int mytest(int nargs, char **args){

@@ -48,6 +48,7 @@ int catmouse(int, char **);
  */
 
 int mytest(int, char **);
+int mythreadtest(int, char **);
 /* lib tests */
 int arraytest(int, char **);
 int bitmaptest(int, char **);

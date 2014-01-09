@@ -159,12 +159,22 @@ lock_create(const char *name)
 
         lock->lk_name = kstrdup(name);
         if (lock->lk_name == NULL) {
-                kfree(lock);
+                kfree(lock->lk_name);
+			  		 kfree(lock);
                 return NULL;
         }
         
-        // add stuff here as needed
-        
+		  //Additions start here
+
+		  lock->lk_wchan = wchan_create(lock->lk_name);
+		  if (lock->lk_wchan == NULL){
+		  		kfree(lock->lk_name);
+				kfree(lock->lk_wchan);
+				kfree(lock);
+				return NULL;
+		  }
+		  spinlock_init(&lock->lk_spinlock);
+		  lock->lk_is_locked = 0;
         return lock;
 }
 
@@ -172,27 +182,41 @@ void
 lock_destroy(struct lock *lock)
 {
         KASSERT(lock != NULL);
-
-        // add stuff here as needed
         
         kfree(lock->lk_name);
-        kfree(lock);
+		  kfree(lock->lk_wchan);
+		  kfree(lock);
+
+		  //aditions start here
+		  spinlock_cleanup(&lock->lk_spinlock);
+       
+		  //and end here
+		  kfree(lock);
+
+
+
 }
 
 void
 lock_acquire(struct lock *lock)
 {
-        // Write this
+		  if (lock->lk_thread==curthread){
+		  		//The thread owner should not be locking it
+			   panic("Lock acquired by same thread twice!\n");
+		  }
 
-        (void)lock;  // suppress warning until code gets written
+		  //More stuff, actual lock acquisition
 }
 
 void
 lock_release(struct lock *lock)
 {
-        // Write this
 
-        (void)lock;  // suppress warning until code gets written
+		  if (lock->lk_thread!=curthread){
+		 	 //Locks should not be unlocked by strange threads.
+			 panic("Lock unlocked by wrong thread!\n"); 
+		  }
+
 }
 
 bool

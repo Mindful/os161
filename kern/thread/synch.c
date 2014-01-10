@@ -202,25 +202,50 @@ lock_destroy(struct lock *lock)
 void
 lock_acquire(struct lock *lock)
 {
+		  KASSERT(lock!=NULL);
+
 		  if (lock->lk_thread==curthread && curthread!=NULL){
 		  		//The thread owner should not be locking it
 			   kprintf("Lock acquired by same thread twice: %s!\n", curthread->t_name);
 		  }
 
-		  //More stuff, actual lock acquisition
+
+		  //Thread can't be in an interrupt state (taken from semaphore code)
+		  KASSERT(curthread->t_in_interrupt == false);
+
+		  spinlock_acquire(lock->lk_spinlock);
+		  while(lock->lk_is_locked){
+			   //If we're ever awake and the lock is locked:
+		 		wchan_lock(lock->lk_wchan);
+				spinlock_release(&lock->lk_spinlock);
+				wchan_sleep(lock->lk_wchan); //also unlocks wchan
+				//This is where we wake up if we're woken from our wchan
+				spinlock_acquire(lock->lk_spinlock);
+		  }
+		
+		  KASSERT(!lk_is_locked); //We shouldn't get here with a locked lock
+		  lock->lk_is_locked = 1;
+		  lock->lk_thread = curthread;
+		  spinlock_release(lock->lk_spinlock);
 }
 
 void
 lock_release(struct lock *lock)
 {
-/*
+		  KASSERT(lock!=NULL);
+
 		  if (lock->lk_thread!=curthread){
 		 	 //Locks should not be unlocked by strange threads.
 			 kprintf("Lock unlocked by wrong thread: %s!\n", curthread->t_name); 
 		  }
-*/
-}
+		  
+		  spinlock_acquire(lock->lk_spinlock);
+		  lock->lk_is_locked = 0;
+		  lock->lk_thread = NULL;
+		  wchan_wakeone(lock->lk_wchan);
+		  spinlock_release(&lock->lk_spinlock);
 
+}
 bool
 lock_do_i_hold(struct lock *lock)
 {

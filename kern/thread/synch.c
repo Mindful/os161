@@ -213,20 +213,20 @@ lock_acquire(struct lock *lock)
 		  //Thread can't be in an interrupt state (taken from semaphore code)
 		  KASSERT(curthread->t_in_interrupt == false);
 
-		  spinlock_acquire(lock->lk_spinlock);
+		  spinlock_acquire(&lock->lk_spinlock);
 		  while(lock->lk_is_locked){
 			   //If we're ever awake and the lock is locked:
 		 		wchan_lock(lock->lk_wchan);
 				spinlock_release(&lock->lk_spinlock);
 				wchan_sleep(lock->lk_wchan); //also unlocks wchan
 				//This is where we wake up if we're woken from our wchan
-				spinlock_acquire(lock->lk_spinlock);
+				spinlock_acquire(&lock->lk_spinlock);
 		  }
 		
-		  KASSERT(!lk_is_locked); //We shouldn't get here with a locked lock
+		  KASSERT(!lock->lk_is_locked); //We shouldn't get here with a locked lock
 		  lock->lk_is_locked = 1;
 		  lock->lk_thread = curthread;
-		  spinlock_release(lock->lk_spinlock);
+		  spinlock_release(&lock->lk_spinlock);
 }
 
 void
@@ -239,7 +239,7 @@ lock_release(struct lock *lock)
 			 kprintf("Lock unlocked by wrong thread: %s!\n", curthread->t_name); 
 		  }
 		  
-		  spinlock_acquire(lock->lk_spinlock);
+		  spinlock_acquire(&lock->lk_spinlock);
 		  lock->lk_is_locked = 0;
 		  lock->lk_thread = NULL;
 		  wchan_wakeone(lock->lk_wchan);
@@ -249,11 +249,10 @@ lock_release(struct lock *lock)
 bool
 lock_do_i_hold(struct lock *lock)
 {
-        // Write this
-
-        (void)lock;  // suppress warning until code gets written
-
-        return true; // dummy until code gets written
+		  KASSERT(lock!=NULL);
+			
+		  
+        return lock->lk_thread==curthread;
 }
 
 ////////////////////////////////////////////////////////////

@@ -109,6 +109,9 @@ syscall(struct trapframe *tf)
 				 (userptr_t)tf->tf_a1);
 		break;
 
+		 case SYS_helloworld:
+		err = sys_helloworld();
+		break;
 	    /* Add stuff here */
  
 	    default:

@@ -156,7 +156,8 @@ time_t __time(time_t *seconds, unsigned long *nanoseconds);
 int __getcwd(char *buf, size_t buflen);
 
 //Additions start here
-int sys_helloworld(void);
+int helloworld(void);
+int printint(int);
 /* stat - see sys/stat.h */
 /* lstat - see sys/stat.h */
 

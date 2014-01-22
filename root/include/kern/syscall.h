@@ -198,6 +198,7 @@
 //#define SYS___sysctl   120
 
 #define SYS_helloworld   121
+#define SYS_printint		 122
 /*CALLEND*/
 
 

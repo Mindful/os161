@@ -11,4 +11,9 @@
 
 int main(){
   helloworld();
+
+  //test printint
+  for (int i=-10; i < 200; i += 20){
+    printint(i);
+  }
 }

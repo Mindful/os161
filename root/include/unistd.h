@@ -158,6 +158,8 @@ int __getcwd(char *buf, size_t buflen);
 //Additions start here
 int helloworld(void);
 int printint(int);
+int printstring(char*, size_t);
+
 /* stat - see sys/stat.h */
 /* lstat - see sys/stat.h */
 

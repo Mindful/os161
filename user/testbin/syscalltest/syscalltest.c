@@ -12,8 +12,8 @@
 int main(){
   helloworld();
 
-  //test printint
-  for (int i=-10; i < 200; i += 20){
+  for (int i=-10; i < 10000; i += 700){
     printint(i);
+	 printstring("cat", 2);
   }
 }

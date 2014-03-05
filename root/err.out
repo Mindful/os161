@@ -1,0 +1,7 @@
+../../arch/mips/syscall/syscall.c: In function ‘syscall’:
+../../arch/mips/syscall/syscall.c:126: warning: passing argument 1 of ‘sys_printstring’ makes pointer from integer without a cast
+../../arch/mips/syscall/syscall.c:130: warning: implicit declaration of function ‘sys_write’
+syscall.o: In function `syscall':
+../../arch/mips/syscall/syscall.c:(.text+0x2b8): undefined reference to `sys_write'
+../../arch/mips/syscall/syscall.c:(.text+0x2b8): relocation truncated to fit: R_MIPS_26 against `sys_write'
+cp: cannot stat ‘kernel’: No such file or directory

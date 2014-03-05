@@ -97,4 +97,7 @@
 #define __IOV_MAX       1024
 
 
+/* Max size to write at a time  */
+#define __KBUF_MAX		10000
+
 #endif /* _KERN_LIMITS_H_ */

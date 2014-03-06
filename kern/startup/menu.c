@@ -101,7 +101,10 @@ cmd_progthread(void *ptr, unsigned long nargs)
 
 	strcpy(progname, args[0]);
 
-	result = runprogram(progname);
+	//This is where the arguments need to come in;
+	//this function needs to pass them to runprogram
+	//or lay them out on the stack or whatever
+	result = runprogram(progname, args, nargs);
 	if (result) {
 		kprintf("Running program %s failed: %s\n", args[0],
 			strerror(result));
@@ -176,6 +179,15 @@ cmd_prog(int nargs, char **args)
 	nargs--;
 
 	return common_prog(nargs, args);
+}
+static
+int
+cmd_echo(int nargs, char **args){
+	for(int i = 0; i < nargs; ++i){
+		kprintf(args[i]);
+		kprintf("\n");
+	}
+	return 0;
 }
 
 /*
@@ -546,6 +558,7 @@ static struct {
 	{ "q",		cmd_quit },
 	{ "exit",	cmd_quit },
 	{ "halt",	cmd_quit },
+	{ "echo", 	cmd_echo },
 
 #if OPT_SYNCHPROBS
 	/* in-kernel synchronization problem(s) */

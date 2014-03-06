@@ -1,4 +1,5 @@
 #include <kern/errno.h>
+#include <kern/types.h>
 #include <lib.h>
 #include <limits.h>
 #include <syscall.h>
@@ -10,15 +11,15 @@
 //  but are always NEGATIVE
 //
 
-
+/*
 int sys_write(int filehandle, const void *buf, size_t size){
 	if (size > KBUF_MAX){
     return -(EINVAL);
 	}
-	if (filehandle == 1 /* STDOUT_FILENO is undefined in kernel space, but it's probably going to remain '1' forever hehehe */){
+	if (filehandle == 1 /* STDOUT_FILENO is undefined in kernel space, but it's probably going to remain '1' forever hehehe /){
 	 kprintf(buf);
 	 return size;
   	}
    
 	return -(EBADF);
-}
+} */

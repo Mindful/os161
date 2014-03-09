@@ -93,8 +93,14 @@ runprogram(char *progname, char** args, unsigned long nargs)
 	/* Define the user stack in the address space */
 	result = as_define_stack(as, &stackptr);
 	if (result) {
-		/* p_addrspace will go away when curproc is destroyed */
+	   /* as_define_stack returns 0 on success */
 		return result;
+	}
+
+   for(int i = 0; i < 1; ++i){
+     kprintf(stackptr);
+	  kprintf(*stakptr);
+	  kprintf((char) *stackptr);
 	}
 
 	/* Warp to user mode. */

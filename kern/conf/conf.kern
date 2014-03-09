@@ -376,7 +376,12 @@ file      syscall/loadelf.c
 file      syscall/runprogram.c
 file      syscall/time_syscalls.c
 file		 syscall/simple_syscalls.c
+<<<<<<< HEAD
 file      syscall/write.c
+=======
+file		 syscall/write.c
+
+>>>>>>> ed825a57a7c03333b23f79228226c495243695ef
 
 #
 # Startup and initialization

@@ -12,6 +12,7 @@ int sys_helloworld(void){
 }
 
 void sys__exit(int code){
+  (void*) code;
   thread_exit();
 }
 
@@ -63,9 +64,17 @@ int sys_printint(int tp){
 }
 
 int sys_printstring(char *string, size_t len){
+<<<<<<< HEAD
 	   char result[len];
 		size_t real_len;
 		copyinstr(string, result, len, &real_len);
 		kprintf(result);
 		return real_len;
+=======
+   char result[len];
+	size_t real_len;
+	copyinstr(string, result, len, &real_len);
+   kprintf(result);
+	return real_len;
+>>>>>>> ed825a57a7c03333b23f79228226c495243695ef
 }

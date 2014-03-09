@@ -60,6 +60,10 @@ int sys___time(userptr_t user_seconds, userptr_t user_nanoseconds);
 int sys_helloworld(void);
 void sys__exit(int);
 int sys_write(int, const void*, size_t);
+<<<<<<< HEAD
+=======
+int sys_fork();
+>>>>>>> ed825a57a7c03333b23f79228226c495243695ef
 int sys_printint(int);
 int sys_printstring(char*, size_t);
 

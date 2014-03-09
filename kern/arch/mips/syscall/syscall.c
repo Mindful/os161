@@ -133,10 +133,19 @@ syscall(struct trapframe *tf)
 		 case SYS_printstring:
 		err = sys_printstring(tf->tf_a0, tf->tf_a1);
 		break;
+
+		 case SYS_write:
+		retval = sys_write(tf->tf_a0, tf->tf_a1, tf->tf_a2);
+		if (retval < 0){
+       err = -retval;
+		 retval = 0;
+		}
+		break;
 	    /* Add stuff here */
  
 	    default:
-		kprintf("Unknown syscall %d\n", callno);
+		//kprintf("Unknown syscall %d\n", callno);
+		kprintf("dingly dangly doodle-danger");
 		err = ENOSYS;
 		break;
 	}

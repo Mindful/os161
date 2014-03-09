@@ -63,6 +63,9 @@ int sys_printint(int tp){
 }
 
 int sys_printstring(char *string, size_t len){
- return kprintf(string);
-
+	   char result[len];
+		size_t real_len;
+		copyinstr(string, result, len, &real_len);
+		kprintf(result);
+		return real_len;
 }

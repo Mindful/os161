@@ -48,11 +48,6 @@
 #define LOGIN_NAME_MAX  __LOGIN_NAME_MAX
 #define OPEN_MAX        __OPEN_MAX
 #define IOV_MAX         __IOV_MAX
-<<<<<<< HEAD
-#define KBUF_MAX        __KBUF_MAX
-
-=======
 #define KBUF_MAX			__KBUF_MAX
->>>>>>> ed825a57a7c03333b23f79228226c495243695ef
 
 #endif /* _LIMITS_H_ */
